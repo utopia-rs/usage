@@ -1,0 +1,34 @@
+[package]
+name = "utopia-usage"
+description = "Usage metrics: events summed and gauges sampled, written in batches and read as totals, time series and dimensional breakdowns over ClickHouse or a utopia-database collection; canonical samples with completeness evidence."
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "BSD-3-Clause"
+
+[features]
+default = ["clickhouse", "database"]
+# The ClickHouse adapter (HTTP interface, through utopia-client).
+clickhouse = ["dep:utopia-client", "dep:utopia-validators"]
+# The Database adapter (one collection of a utopia-database database).
+database = ["dep:utopia-database"]
+
+[dependencies]
+async-trait = "0.1"
+getrandom = "0.3"
+hex = "0.4"
+indexmap = "2"
+md-5 = "0.10"
+php-std = { version = "0.1.0", git = "https://github.com/utopia-rs/php-std" }
+sha2 = "0.10"
+utopia-client = { version = "0.1.0", git = "https://github.com/utopia-rs/client", optional = true }
+utopia-database = { version = "0.1.0", git = "https://github.com/utopia-rs/database", optional = true }
+utopia-query = { version = "0.1.0", git = "https://github.com/utopia-rs/query" }
+utopia-validators = { version = "0.1.0", git = "https://github.com/utopia-rs/validators", optional = true }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "sync", "signal", "rt"] }
+
+[package.metadata.utopia]
+category = "observability"
+php-sync = "da0119eda7c139b8f99b13d814e5a99f9b5ac418"
